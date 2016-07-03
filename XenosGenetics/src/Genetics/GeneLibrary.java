@@ -1,6 +1,6 @@
 package Genetics;
 
-import ControlClasses.Node;
+import Utility.Node;
 
 
 public class GeneLibrary {
@@ -28,6 +28,7 @@ public class GeneLibrary {
 	public GeneBodyType dragon = new GeneBodyType("Dragonoid", 2, 2, 1, 0, 1, 1);
 	public GeneBodyType wyvern = new GeneBodyType("Wyvernoid", 1, 1, 1, 0, 1, 1);
 	
+	public Node<GeneBodyType> nHuman = new Node<GeneBodyType>(humanoid);
 	
 	
 	
