@@ -19,7 +19,7 @@ public class Breeding {
 	Random r = new Random();
 	
 	public boolean canBreed(Creature creature1, Creature creature2){
-		if (!creature1.getDNA().getGeneGender().equals(creature2.getGender())){
+		if (!creature1.getDNA().getGeneDominantGender().equals(creature2.getDNA().getGeneDominantGender())){
 			return true;
 		}
 		return false;
