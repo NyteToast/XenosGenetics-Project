@@ -30,7 +30,7 @@ public class CreatureStorage {
 		String[] output = new String[getNextEmpty()];
 		
 		for (int i = 0; i < getNextEmpty(); i++){
-			output[i] = store[i].getDetails();
+			output[i] = store[i].getName();
 		}
 		
 		return output;
