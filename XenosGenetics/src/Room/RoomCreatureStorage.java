@@ -17,8 +17,8 @@ public class RoomCreatureStorage extends Room{
 	public void setIsFull(boolean isFull){this.isFull = isFull;}
 	
 	//Constructors
-	public RoomCreatureStorage(int maxlevel, int capacity, int expansion) {
-		super(maxlevel);
+	public RoomCreatureStorage(int maxlevel, int width, int length, int capacity, int expansion) {
+		super(maxlevel, width, length);
 		setCapacity(capacity);
 		setExpansion(expansion);
 		// TODO Auto-generated constructor stub
