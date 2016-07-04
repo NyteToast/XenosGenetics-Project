@@ -14,17 +14,8 @@ public class Main {
 	GeneLibrary genes = new GeneLibrary();
 	
 	public static void main(String args[]){
-		
-		createRooms();
-		
-		
 		Main m = new Main();
-		
-		int male1 = 0;
-		int female1 = 0;
-		
 		Breeding breeder = new Breeding();
-		
 		
 	}
 	

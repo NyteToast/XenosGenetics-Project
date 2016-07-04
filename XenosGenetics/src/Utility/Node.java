@@ -5,19 +5,16 @@ import java.util.List;
 import java.util.Random;
 
 public class Node<T> {
-	private T data;
-	private int probability;
-	private Node<T> parent;
-	private List<Node<T>> children;
+	private T data;					//Object that is stored in Node<T>
+	private Node<T> parent;			//Allows the finding of the extended node
+	private List<Node<T>> children; //Any node that can be mutated to parent auto included as demutation.
 	
 	//Get
 	public T getData(){return data;}
-	public int getProbability(){return probability;}
 	public Node<T> getParent(){return parent;}
 	public List<Node<T>> getChildren(){return children;}
 	//Set
 	public void setData(T data){this.data = data;}
-	public void setProbability(int probability){this.probability = probability;}
 	public void setParent(Node<T> parent){this.parent = parent;}
 	public void setChild(Node<T> child){this.children.add(child);}
 	
@@ -26,13 +23,6 @@ public class Node<T> {
 		setData(rootData);
 	    children = new ArrayList<Node<T>>();
 	}
-	public Node(T rootData, int probability, Node<T> parent){
-		setData(rootData);
-		setProbability(probability);
-		children = new ArrayList<Node<T>>();
-		setParent(parent);
-		parent.setChild(this);
-	}
 	public Node(T rootData, Node<T> parent){
 		setData(rootData);
 		children = new ArrayList<Node<T>>();
@@ -40,22 +30,12 @@ public class Node<T> {
 		parent.setChild(this);
 	}
 	//Methods
-	public void addChild(T child, int probability){
-		children.add(new Node<T>(child, probability, this));
+	public void addChild(Node<T> child){
+		children.add(child);
 	}
 	public Node<T> getChild(){
-		int[] prob = new int[children.size()];
-		int count = 0;
 		Random r = new Random();
-		for (int i = 0; i < children.size(); i++){
-			count += children.get(i).probability;
-			prob[i] = count;
-		}
-		int roll = r.nextInt(count + 1); 
-		for (int i = 0; i < prob.length; i++){
-			if (roll <= prob[i]){return children.get(i);}
-		}
-		return null;
+		return children.get(r.nextInt(children.size()));
 	}
 	public Node<T> findByData(T data){
 		Node<T> output = null;

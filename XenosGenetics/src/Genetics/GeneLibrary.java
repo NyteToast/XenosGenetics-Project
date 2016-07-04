@@ -1,6 +1,7 @@
 package Genetics;
 
 import Utility.Node;
+import Utility.NodeExtended;
 
 
 public class GeneLibrary {
@@ -14,21 +15,35 @@ public class GeneLibrary {
 	//public GeneBodyType nagaroid = new GeneBodyType("FEATURE", 2, 0, 0, 0, 0, 0); REQUIRES IMPLEMENTATION OF TAILLEGS
 	
 	public GeneBodyType humanoid = new GeneBodyType("Humanoid", 5, 1, 1, 2, 0, 0 );
-	public GeneBodyType angeloid = new GeneBodyType("Winged Humanoid", 3, 1, 1, 2, 0, 1);
-	public GeneBodyType deviloid = new GeneBodyType("Tailed Humanoid", 4, 1, 1, 2, 1, 0);
-	public GeneBodyType wingedDeviloid = new GeneBodyType("Winged Humanoid With Tail", 2, 1, 1, 2, 1, 1);
+	public GeneBodyType angel = new GeneBodyType("Winged Humanoid", 3, 1, 1, 2, 0, 1);
+	public GeneBodyType devil = new GeneBodyType("Tailed Humanoid", 4, 1, 1, 2, 1, 0);
+	public GeneBodyType wDevil = new GeneBodyType("Winged Humanoid With Tail", 2, 1, 1, 2, 1, 1);
 	
 	public GeneBodyType horse = new GeneBodyType("Horseroid", 7, 2, 1, 0, 0, 0);
 	public GeneBodyType centaur = new GeneBodyType("Centauroid", 5, 2, 1, 2, 0, 0);
 	public GeneBodyType pegasi = new GeneBodyType("Winged Horseroid", 6, 2, 1, 0, 0, 1);
-	public GeneBodyType wingedCentaur = new GeneBodyType("Winged Centauroid", 2, 2, 1, 2, 0, 1);
+	public GeneBodyType wCentaur = new GeneBodyType("Winged Centauroid", 2, 2, 1, 2, 0, 1);
 	
 	//public GeneBodyType serpent = new GeneBodyType("Serpentoid", 3, 0, 1, 0, 1, 0); REQUIRES IMPLEMENTATION OF TAILLEGS
 	public GeneBodyType lizard = new GeneBodyType("Lizardoid", 3, 2, 1, 0, 1, 0);
 	public GeneBodyType dragon = new GeneBodyType("Dragonoid", 2, 2, 1, 0, 1, 1);
 	public GeneBodyType wyvern = new GeneBodyType("Wyvernoid", 1, 1, 1, 0, 1, 1);
+	public GeneBodyType trex = new GeneBodyType("Like a T-rex, but without arms", 3, 2, 1, 0, 1, 0);
 	
-	public Node<GeneBodyType> nHuman = new Node<GeneBodyType>(humanoid);
+	public NodeExtended<GeneBodyType> nHuman;
+		public Node<GeneBodyType> nAngel = new Node<GeneBodyType>(angel, nHuman);
+		public Node<GeneBodyType> nDevil = new Node<GeneBodyType>(devil, nHuman);
+			public Node<GeneBodyType> nWDevil = new Node<GeneBodyType>(wDevil, nDevil);
+	
+	public NodeExtended<GeneBodyType> nLizard;
+		public Node<GeneBodyType> nDragon = new Node<GeneBodyType>(dragon, nLizard);
+		public Node<GeneBodyType> nTrex = new Node<GeneBodyType>(trex, nLizard);
+			public Node<GeneBodyType> nWyvern = new Node<GeneBodyType>(wyvern, nTrex);
+			
+	public NodeExtended<GeneBodyType> nHorse;
+		public Node<GeneBodyType> nCentaur = new Node<GeneBodyType>(centaur, nHorse);
+			public Node<GeneBodyType> nWCentaur = new Node<GeneBodyType>(wCentaur, nCentaur);
+		public Node<GeneBodyType> nPegasi = new Node<GeneBodyType>(pegasi, nHorse);
 	
 	
 	
@@ -105,5 +120,23 @@ public class GeneLibrary {
 	public GeneLifespan ls5Days = new GeneLifespan("1-5 Days", 1, 1, 5);
 	public GeneLifespan ls10Days = new GeneLifespan("5-10 Days", 2, 5, 10);
 	
-	
+	//CONSTRUCTORS
+	public GeneLibrary(){
+		setupNodes();
+		setupUniRelations();
+	}
+	//METHODS
+	public void setupNodes(){
+		nHuman = new NodeExtended<GeneBodyType>(humanoid, nHorse, nLizard);
+		nLizard = new NodeExtended<GeneBodyType>(lizard, nHuman, null);
+		nHorse = new NodeExtended<GeneBodyType>(humanoid, null, nHuman);
+	}
+	public void setupUniRelations(){
+		nAngel.addChild(nWDevil);
+		
+		nDragon.addChild(nWyvern);
+		nWyvern.addChild(nDragon);
+		
+		nPegasi.addChild(nWCentaur);
+	}
 }
